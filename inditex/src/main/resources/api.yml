@@ -1,0 +1,50 @@
+openapi: 3.0.3
+info:
+  description: "API for Example Inditex"
+  version: "0.0.1"
+  title: "BcncInditex"
+  contact:
+    name: "Miguel Arredondo Calderon"
+    email: "miguel.arredondo.calderon@gmail.com"
+paths:
+  /products:
+    get:
+      summary: List all products
+      operationId: listProducts
+      responses:
+        '200':
+          description: A list of products
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+  /products/{id}:
+    get:
+      summary: Get a product by ID
+      operationId: getProductById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A product
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        surname:
+          type: string

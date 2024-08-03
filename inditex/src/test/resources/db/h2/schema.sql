@@ -1,0 +1,15 @@
+--CREATE SCHEMA IF NOT EXISTS idtx;
+--
+--CREATE TABLE IF NOT EXISTS idtx.tidtxusr (
+--    cod_usr INTEGER AUTO_INCREMENT PRIMARY KEY,
+--    des_name_usr CHARACTER VARYING(10),
+--    des_surname_usr CHARACTER VARYING(20)
+--);
+--
+--COMMENT ON TABLE idtx.tidtxusr IS 'tabla user .';
+--
+--SET @maxapp = 20;
+--CREATE SEQUENCE IF NOT EXISTS idtx.qidtxusr0
+--INCREMENT 1
+--MINVALUE 1
+--START @maxapp;
