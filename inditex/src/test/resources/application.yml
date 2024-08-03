@@ -1,0 +1,73 @@
+
+server:
+  port: 8081
+#endpoints:
+#  health:
+#    sensitive: false
+#    time-to-live: 1000
+#  restart:
+#    enabled: false
+#  shutdown:
+#    enabled: false
+#  refresh:
+#    enabled: false
+#  logfile:
+#    enabled: false
+#
+#management:
+#  security:
+#    enabled: false
+
+spring:
+  application:
+    name: inditex
+
+  datasource:
+    url: jdbc:h2:mem:bcnc
+    username: sa
+    password:
+    driverClassName: org.h2.Driver
+    data: classpath:data.sql
+    schema: classpath:schema.sql
+    sql-script-encoding: UTF-8
+
+  jpa:
+    database: h2
+    database-platform: org.hibernate.dialect.H2Dialect
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+      use_sql_comments: true
+      format_sql: true
+#    defer-datasource-initialization: true  #anulamos el comportamiento predeterminado y posponemos la inicialización de datos después de la inicialización de Hibernate .
+
+#    properties:
+#      hibernate:
+#        default_schema: htes
+#        connection:
+#          url: jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;INIT=CREATE SCHEMA IF NOT EXISTS htes
+#        username: sa
+#        password:
+#        dialect: org.hibernate.dialect.H2Dialect
+
+
+  sql:
+    init:
+      mode: always
+      data-locations: classpath:data.sql  # Añadir esta propiedad aquí
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings.trace: false
+      settings.web-allow-others: false
+
+#  profiles:
+#    active: dev
+
+
+
+#logging:
+#  level:
+#    org.hibernate.SQL: debug
+#    org.hibernate.type.descriptor.sql.BasicBinder: trace

@@ -1,3 +1,0 @@
---INSERT INTO idtx.tidtxusr (cod_usr,des_name_usr, des_surname_usr) VALUES
---(1,'Miguel', 'Arredondo Calderon'),
---(2,'David', 'Arredondo Calderon');
