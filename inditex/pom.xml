@@ -149,7 +149,9 @@
 								ApiUtil.java
 							</supportingFilesToGenerate>
 							<configOptions>
-								<delegatePattern>true</delegatePattern>
+								<delegatePattern>false</delegatePattern> <!-- Para que no genere una capa delegado intermedia en la zona del controller-->
+								<interfaceOnly>false</interfaceOnly> <!-- Me escriba la imterfaz de la implementacion del controller-->
+								<returnSuccessCode>true</returnSuccessCode>
 							</configOptions>
 						</configuration>
 					</execution>
