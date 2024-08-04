@@ -6,45 +6,100 @@ info:
   contact:
     name: "Miguel Arredondo Calderon"
     email: "miguel.arredondo.calderon@gmail.com"
+servers:
+  - url: /v1
 paths:
-  /products:
+  /prices:
     get:
-      summary: List all products
-      operationId: listProducts
+      summary: Obtener precio aplicable
+      tags:
+        - Prices
+      description: Devuelve el precio final aplicar de un producto para fecha específica.
+      parameters:
+        - name: applicationDate
+          in: query
+          description: Fecha de aplicación en formato YYYY-MM-DD.
+          required: true
+          schema:
+            type: string
+            pattern: '^\d{4}-\d{2}-\d{2}$'
+        - name: productId
+          in: query
+          description: Identificador del producto.
+          required: true
+          schema:
+            type: integer
+        - name: brandId
+          in: query
+          description: Identificador de la cadena.
+          required: true
+          schema:
+            type: integer
       responses:
         '200':
-          description: A list of products
+          description: Obtención de precios encontrados
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Product'
-  /products/{id}:
-    get:
-      summary: Get a product by ID
-      operationId: getProductById
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: A product
+                  $ref: "#/components/schemas/price"
+        '404':
+          description: Precio no encontrado
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Product'
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Precio no encontrado
+        '400':
+          description: Parámetros de entrada inválidos
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Parámetros de entrada inválidos
 components:
   schemas:
-    Product:
+    price:
       type: object
+      required:
+        - productId
+        - brandId
+        - tariff
+        - applicationStartDate
+        - applicationEndDate
+        - finalPrice
       properties:
-        id:
+
+        productId:
+          type: integer
+          description: "Identificador del producto"
+        brandId:
+          type: integer
+          description: "Identificador de la cadena"
+        tariff:
           type: string
-        name:
+          description: "Tarifa a aplicar"
+        applicationStartDate:
           type: string
-        surname:
+          format: date
+          description: "Fecha de inicio de la aplicación de la tarifa (YYYY-MM-DD)"
+        applicationEndDate:
           type: string
+          format: date
+          description: "Fecha de fin de la aplicación de la tarifa (YYYY-MM-DD)"
+        finalPrice:
+          type: number
+          format: float
+          description: "Precio final a aplicar"
+
+      additionalProperties: false
+tags:
+  - name: Prices
+    description: Obtener los precios resultado

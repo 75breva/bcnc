@@ -3,7 +3,7 @@ package com.bncn.inditex.model;
 
 
 
-import com.bncn.inditex.dto.Product;
+
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
@@ -18,7 +18,7 @@ import javax.validation.constraints.Size;
 @Entity
 @Getter
 @Setter
-@Table(name = "users")
+@Table(name = "product")
 //@SequenceGenerator(sequenceName = "qidtxusr0", allocationSize = 1, name = "qidtxusr0")
 //@SequenceGenerator(sequenceName = "qusers0", allocationSize = 1, name = "qusers0")
 @Data
@@ -28,25 +28,14 @@ public class ProductJpa {
     @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "qusers0")
 //    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "cod_usr")
+    @Column(name = "cod_product")
     private Integer id;
 
-    @Column(name = "des_name_usr")
-    @NotNull
-    @Size(min = 1, max = 10)
+    @Column(name = "des_name",length = 20)
     private String name;
 
-    @Column(name = "des_surname_usr")
-    @NotNull
-    @Size(max = 20)
-    private String surname;
+    @Column(name = "des_surname_usr",length = 80)
+    private String description;
 
-    public Product toProduct(){
-        Product product = new Product();
-        product.setSurname(this.surname);
-        product.setName(this.name);
-        product.setId(this.id.toString());
-        return product;
-    }
 
 }
