@@ -1,6 +1,7 @@
 package com.bncn.inditex.model;
 
 
+import com.bncn.inditex.dto.Price;
 import com.bncn.inditex.utils.format;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -42,5 +43,20 @@ public class PriceJpa implements Serializable {
 
     @Column(name = "moneda", nullable = false, length = format.LENGTH_CODE)
     private String moneda;
+
+    /**
+     * Funcion para parsear el objeto bbdd-jpa al DTO
+     * @return objeto DTO Price
+     */
+    // Funcion para parsear el objeto bbdd-jpa al DTO
+    public Price toPriceDto(){
+        Price priceDto = new Price();
+        // Al poner todos los objetos not null, no compruebo si esta vacios.
+        priceDto.setBrandId(this.brandJpa.getId());
+        priceDto.setTarifApli(this.priority);
+        priceDto.setFinalPrice(Float.valueOf(this.priceFinal));
+        return priceDto;
+
+    }
 
 }

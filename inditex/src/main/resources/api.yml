@@ -77,14 +77,12 @@ components:
         - finalPrice
       properties:
 
-        productId:
-          type: integer
-          description: "Identificador del producto"
+
         brandId:
           type: integer
           description: "Identificador de la cadena"
-        tariff:
-          type: string
+        tarifApli:
+          type: integer
           description: "Tarifa a aplicar"
         applicationStartDate:
           type: string

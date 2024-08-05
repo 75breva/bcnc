@@ -28,7 +28,7 @@ create table prices(
     end_date timestamp without time zone NOT NULL,                             -- Fecha de fin de la aplicación de la tarifa
     priority INTEGER  NOT NULL,                         -- Tarifa a aplicar
     price_list INTEGER NOT NULL,                        -- Identificador de la tarifa de precios
-    price_final varchar(40) NOT NULL,                   -- Precio final de venta
+    price_final varchar(40) NOT NULL,                   -- Precio final de venta en STRING en vez de DOUBLE
     moneda varchar(5),                                  -- Código ISO de la moneda
 
     constraint rproduct_prices_1 foreign key (cod_product)
