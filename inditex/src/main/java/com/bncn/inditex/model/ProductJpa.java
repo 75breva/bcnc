@@ -4,6 +4,7 @@ package com.bncn.inditex.model;
 
 
 
+import com.bncn.inditex.utils.format;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
@@ -13,28 +14,26 @@ import lombok.extern.slf4j.Slf4j;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 
 
 @Entity
-@Getter
-@Setter
 @Table(name = "product")
 //@SequenceGenerator(sequenceName = "qidtxusr0", allocationSize = 1, name = "qidtxusr0")
 //@SequenceGenerator(sequenceName = "qusers0", allocationSize = 1, name = "qusers0")
 @Data
 @Slf4j  // Importante para que no me de problemas encontrando las entidades
-public class ProductJpa {
+public class ProductJpa implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "qusers0")
-//    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "cod_product")
+    @Column(name = "cod_product", nullable = false)
     private Integer id;
 
-    @Column(name = "des_name",length = 20)
+    @Column(name = "des_name",length = format.LENGTH_NAME)
     private String name;
 
-    @Column(name = "des_surname_usr",length = 80)
+    @Column(name = "des_description", length = format.LENGTH_DESCRIPTION)
     private String description;
 
 

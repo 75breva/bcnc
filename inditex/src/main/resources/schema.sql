@@ -16,8 +16,8 @@ CREATE TABLE product (
 
 CREATE TABLE brand (
     cod_brand INTEGER AUTO_INCREMENT PRIMARY KEY,      -- Identificador único para cada marca
-    des_name VARCHAR(80) NOT NULL,     -- Nombre de la marca
-    des_description VARCHAR(255) NOT NULL               -- Descripción de la marca (opcional)
+    des_name VARCHAR(20) NOT NULL,     -- Nombre de la marca
+    des_description VARCHAR(80) NOT NULL               -- Descripción de la marca (opcional)
 );
 
 create table prices(
@@ -35,7 +35,7 @@ create table prices(
         references product(cod_product),
     constraint rbrand_prices_1 foreign key (cod_brand)
             references brand(cod_brand)
---    constraint unique_price UNIQUE (cod_product, cod_brand, start_date),  -- veo logico que sea unico fecha de comienzo, producto y cadena de grupo
+--    constraint unique_price UNIQUE (cod_product, cod_brand, start_date),
 
 );
 

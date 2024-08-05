@@ -35,7 +35,7 @@ create table prices(
         references product(cod_product),
     constraint rbrand_prices_1 foreign key (cod_brand)
             references brand(cod_brand)
---    constraint unique_price UNIQUE (cod_product, cod_brand, start_date),  -- veo logico que sea unico fecha de comienzo, producto y cadena de grupo
+--    constraint unique_price UNIQUE (cod_product, cod_brand, start_date),
 
 );
 

@@ -33,13 +33,18 @@
 	</properties>
 	<dependencies>
 
-		<dependency>
+		<dependency> <!-- Si no se pone no inyecta bien los repos en los servicios-->
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-jpa</artifactId>
+			<version>3.3.2</version>
 		</dependency>
 		<dependency>
 			<groupId>org.openapitools</groupId>
@@ -49,7 +54,7 @@
 		<dependency>
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-ui</artifactId>
-			<version>1.7.0</version>
+			<version>1.8.0</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.persistence</groupId>
@@ -78,10 +83,7 @@
 			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-		</dependency>
+
 		<dependency>
 			<groupId>org.openapitools</groupId>
 			<artifactId>openapi-generator-cli</artifactId>
@@ -98,24 +100,32 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>6.2.7.Final</version> <!-- Asegúrate de que esta versión sea compatible con Spring Boot 3.x -->
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId> <!-- manejo de archivos, flujos de entrada y salida, y operaciones relacionadas con la I/O. -->
+			<artifactId>commons-io</artifactId>
+			<version>2.11.0</version>
+		</dependency>
+
+		<dependency> <!-- Al usar version java superior a la 8 me da problemas el endpoint con parametros query-->
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 			<version>4.0.1</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-core</artifactId>
-			<version>6.2.7.Final</version> <!-- Asegúrate de que esta versión sea compatible con Spring Boot 3.x -->
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.24</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.boot</groupId><!-- Si no se pone no inyecta bien los repos en los servicios-->
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>commons-io</groupId> <!-- manejo de archivos, flujos de entrada y salida, y operaciones relacionadas con la I/O. -->
-			<artifactId>commons-io</artifactId>
-			<version>2.11.0</version>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-javadoc-plugin</artifactId>
+			<version>3.5.0</version>
 		</dependency>
 
 	</dependencies>

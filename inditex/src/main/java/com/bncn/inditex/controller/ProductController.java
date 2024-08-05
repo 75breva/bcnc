@@ -1,15 +1,14 @@
 package com.bncn.inditex.controller;
 
 import com.bncn.inditex.dto.Price;
+
 import com.bncn.inditex.service.PriceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDate;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/prices")
+@RequestMapping("/v1/prices")
 public class ProductController {
 
     @Autowired
