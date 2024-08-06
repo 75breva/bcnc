@@ -7,9 +7,11 @@ import com.bncn.inditex.exception.PriceNotFoundException;
 import com.bncn.inditex.model.PriceJpa;
 
 import com.bncn.inditex.repository.PriceRepository;
+import com.bncn.inditex.utils.Validate;
 import com.google.inject.internal.Errors;
 import org.apache.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -25,13 +27,9 @@ public class PriceService {
     @Autowired
     PriceRepository priceRepository;
     public List<Price> findPrices( Integer productId, Integer brandId, String applicationDate)throws Exception  {
-        if ( applicationDate.isEmpty()) {
-            throw new PriceNotFoundException("Parámetros de solicitud inválidos.", true);
-        }
-
+        Validate.validateParammeters(applicationDate);
         List<PriceJpa> priceJpaList = priceRepository.findAllPricesbyDate(productId,brandId, Timestamp.valueOf(applicationDate));
 
-        List<Price> priceList = new ArrayList<>();
         if(!priceJpaList.isEmpty()){
             return priceJpaList.stream().map(PriceJpa::toPriceDto).toList();
         }

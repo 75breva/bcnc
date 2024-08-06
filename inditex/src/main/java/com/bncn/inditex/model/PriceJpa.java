@@ -6,6 +6,7 @@ import com.bncn.inditex.utils.format;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.joda.time.LocalDate;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -55,6 +56,9 @@ public class PriceJpa implements Serializable {
         priceDto.setBrandId(this.brandJpa.getId());
         priceDto.setTarifApli(this.priority);
         priceDto.setFinalPrice(Float.valueOf(this.priceFinal));
+        priceDto.setApplicationStartDate(this.startDate.toString());
+        priceDto.setApplicationEndDate(this.endDate.toString());
+        priceDto.setMoney(this.moneda);
         return priceDto;
 
     }

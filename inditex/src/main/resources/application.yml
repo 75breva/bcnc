@@ -1,22 +1,6 @@
 
 server:
   port: 8081
-#endpoints:
-#  health:
-#    sensitive: false
-#    time-to-live: 1000
-#  restart:
-#    enabled: false
-#  shutdown:
-#    enabled: false
-#  refresh:
-#    enabled: false
-#  logfile:
-#    enabled: false
-#
-#management:
-#  security:
-#    enabled: false
 
 spring:
   application:

@@ -7,20 +7,20 @@ create table users(
 --COMMENT ON TABLE users IS 'tabla user .';
 
 
-CREATE TABLE product (
+create table IF NOT EXISTS product (
     cod_product INTEGER AUTO_INCREMENT PRIMARY KEY,         -- Identificador único para cada producto
     des_name VARCHAR(20) NOT NULL,                          -- Nombre del producto
     des_description VARCHAR(80) NOT NULL                   -- Descripción del producto (opcional)
 
 );
 
-CREATE TABLE brand (
+create table IF NOT EXISTS brand (
     cod_brand INTEGER AUTO_INCREMENT PRIMARY KEY,      -- Identificador único para cada marca
     des_name VARCHAR(20) NOT NULL,     -- Nombre de la marca
     des_description VARCHAR(80) NOT NULL               -- Descripción de la marca (opcional)
 );
 
-create table prices(
+create table IF NOT EXISTS prices(
     cod_price INTEGER AUTO_INCREMENT PRIMARY KEY,       -- Identificador único para cada registro de la tabla
     cod_product INTEGER NOT NULL,                       -- fk que se define automáticamente al crear un nuevo registro
     cod_brand INTEGER NOT NULL,                         -- fk que se define automáticamente al crear un nuevo registro
