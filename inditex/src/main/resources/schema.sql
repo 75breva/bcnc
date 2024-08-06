@@ -1,11 +1,4 @@
 
-create table users(
-    cod_usr INTEGER AUTO_INCREMENT PRIMARY KEY,
-    des_name_usr varchar(10),
-    des_surname_usr varchar(20)
-);
---COMMENT ON TABLE users IS 'tabla user .';
-
 
 create table IF NOT EXISTS product (
     cod_product INTEGER AUTO_INCREMENT PRIMARY KEY,         -- Identificador único para cada producto

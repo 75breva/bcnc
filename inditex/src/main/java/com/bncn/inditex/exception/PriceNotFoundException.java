@@ -5,7 +5,7 @@ import com.bncn.inditex.dto.PricesGet404Response;
 import org.apache.http.HttpStatus;
 
 public class PriceNotFoundException extends RuntimeException {
-    private final Object response;
+    private final transient Object response; // sonar Make "response" transient or serializable
     private final int httpStatus;
 
     // Constructor para 404 Not Found

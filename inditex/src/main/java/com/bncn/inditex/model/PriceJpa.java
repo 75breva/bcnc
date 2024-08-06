@@ -6,7 +6,6 @@ import com.bncn.inditex.utils.format;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import org.joda.time.LocalDate;
 
 import java.io.Serializable;
 import java.sql.Timestamp;

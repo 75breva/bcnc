@@ -1,8 +1,3 @@
-INSERT INTO users (des_name_usr,des_surname_usr) VALUES
-('Miguel', 'Arredondo Calderon'),
-('David', 'Arredondo Calderon');
-
-
 
 INSERT INTO product (cod_product,des_name, des_description) VALUES
 (35455,'Product 35455', 'Producto con ID 35455 para pruebas de tarifas.');  -- Solo un producto para el ejemplo
