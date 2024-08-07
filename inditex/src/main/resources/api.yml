@@ -18,7 +18,7 @@ paths:
       parameters:
         - name: applicationDate
           in: query
-          description: Fecha de aplicación en formato YYYY-MM-DD.
+          description: Fecha de aplicación en formato YYYY-MM-DD HH:MM:SS.
           required: true
           schema:
             type: string

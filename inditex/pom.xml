@@ -102,7 +102,7 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
-			<version>6.2.7.Final</version> <!-- Asegúrate de que esta versión sea compatible con Spring Boot 3.x -->
+			<version>6.2.7.Final</version>
 		</dependency>
 
 		<dependency>

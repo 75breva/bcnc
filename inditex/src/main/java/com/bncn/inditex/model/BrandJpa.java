@@ -1,14 +1,14 @@
 package com.bncn.inditex.model;
 
 import com.bncn.inditex.utils.format;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "brand")
@@ -25,4 +25,9 @@ public class BrandJpa implements Serializable {
 
     @Column(name = "des_description",length = format.LENGTH_DESCRIPTION)
     private String description;
+
+    @OneToMany(mappedBy = "brandJpa", cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<PriceJpa> priceJpaList;
+
 }
