@@ -21,34 +21,41 @@ class InditexApplicationTests {
     @Autowired
     PriceService priceService;
 	@Test
-	void testListProducts() {
-        try {
-            productController.getPrices("2024-08-11 15:00:00",35455,1);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+	void testListProducts() throws Exception {
+//        try {
+//            productController.getPrices("2024-08-11 15:00:00",35455,1);
+//        } catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+        productController.getPrices("2024-08-11 15:00:00", 35455, 1);
     }
 
     @Test
     void testListProductsNotFound() {
-        try {
-            productController.getPrices("2024-08-11 15:00:00",35456,1);
-        } catch (Exception e) {
-            assertThrows(PriceNotFoundException.class, () -> {
-                priceService.findPrices(35456, 1, "2024-08-11 15:00:00");
-            });
-        }
+//        try {
+//            productController.getPrices("2024-08-11 15:00:00",35456,1);
+//        } catch (Exception e) {
+//            assertThrows(PriceNotFoundException.class, () -> {
+//                priceService.findPrices(35456, 1, "2024-08-11 15:00:00");
+//            });
+//        }
+        assertThrows(PriceNotFoundException.class, () ->
+                productController.getPrices("2024-08-11 15:00:00", 35456, 1)
+        );
     }
 
     @Test
     void testListProductsInvalidParameters() {
-        try {
-            productController.getPrices("",35456,1);
-        } catch (Exception e) {
-            assertThrows(PriceNotFoundException.class, () -> {
-                priceService.findPrices(35456, 1, "");
-            });
-        }
+//        try {
+//            productController.getPrices("",35456,1);
+//        } catch (Exception e) {
+//            assertThrows(PriceNotFoundException.class, () -> {
+//                priceService.findPrices(35456, 1, "");
+//            });
+//        }
+        assertThrows(PriceNotFoundException.class, () ->
+                productController.getPrices("", 35456, 1)
+        );
     }
 
 

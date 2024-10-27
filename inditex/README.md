@@ -73,4 +73,73 @@ Para acceder a la configuracion de la base de datos (url, puertos etc) tenemos e
 En el proyecto dento de la carpeta Resource / postman , esta definido en el archivo el endpoint para su correcta llamada a la api una vez arrancada.
 
 
+## Añadir ejemplo Kafka
+En este video, tenemos la posibilidad de bajarse el proyecto usando dos microservicios.
+- https://www.youtube.com/watch?v=1dvCwFgHZCk
+- https://github.com/yoandypv/spring-boot-kafka-basics
 
+En mi caso lo voy hacer en el mismo microservicio.
+
+### Opcion 1  [ Kafka y Zookeeper ] 
+Seguir la Guia: https://sacavix.com/2022/03/iniciando-apache-kafka-en-windows-offset-explorer/
++ Me descargo kafka en este caso la verison :Binary downloads: Scala 2.12  - kafka_2.12-3.8.0.tgz (asc, sha512)
++ Segui las indicaciones de poner la carpeta descargada en la raiz de C:.
++ Cree una carpeta C:/kafka/bitacora para los LOGS tanto de zookeeper como kafka (Se puede cambgiar la ruta como se quiera)
++ Abrit terminal e Importante ir a la ruta que indica la guia: C:\kafka_2.12-3.8.0\bin\windows 
+  + Lanzamos el siguiente comando para arrancar zookeeper: 
+    - .\zookeeper-server-start.bat ..\..\config\zookeeper.properties
+  + Lanzamo el siguiente comando para arrancar Kafka:
+    - .\kafka-server-start.bat ..\..\config\server.properties.
+    
+Listo ya podemos arrancar nuestra aplicacion y atacar con el endpoint creado, donde se producira y de forma 
+automatica se consumira. 
+
+### Descargar Offset Explorer para monitorear los mensajes que pasan, crear topicos etc.
+- Propiedades de la conexión (Kafka):
+  - Cluster name: el que quieras.
+  - Boostrap servers localhost:9092
+  - Kafka cluster version: 3.7 aunque tenga descargado la 3.8 (no tiene mas nuevas)
+- Propiedades de la conexión (zookeeper):
+  - Host: localhost
+  - Port: 2181 (lo que hemos configurado en los archivos de config)
+
+
+
+### Opcion 2  [ Kafka y Zookeeper DOCKERIZADO] 
+Seguir la Guia: https://sacavix.com/2022/02/iniciando-kafka-con-docker/
+- Importante para el tema del instalacion del portainer seguir la doc oficial.
+    - https://docs.portainer.io/start/install-ce/server/docker/linux
+    - https://www.ionos.es/digitalguide/servidores/configuracion/instalar-portainer-en-docker/  (Esta vale para simplemente ver que es una copia de la 1º url)
+1. Descargar Docker Desktop y te registras (yo con la cuenta de google mismo),
+2. Desde cmd creas el volumen:
+``` 
+docker volume create portainer_data  
+``` 
+Puedes visualizarlo desde docker desktop
+3. Cuando accedes al portainer https://localhost:9443  crear un usuario 
+   - admin , pass de 12 caracteres. Miarca_..... y compruebo que tengo docker-compose:
+        -  cmd :  
+        ``` 
+         docker-compose --version 
+        ```
+        - Info interesante al respecto: 
+          - https://anderfernandez.com/blog/tutorial-docker-compose/
+          - https://imaginaformacion.com/tutoriales/que-es-docker-compose
+          - Me voy a la ruta de mi docker-compose.yml y lanzo en el terminal: 
+          ``` 
+           docker-compose up -d 
+          ```
+            + Me debe de generar los dos contenedero/imagenes de kafka y zookeeper.
+            + En total 6 volumenes, 3 imagenes/contenedores (con la del portainer), 1 stack, 4 network
+          - Necesito verificar que hay acceso a los 2 servidores.
+            - Instalo netcat-Nmap siguiendo esta guia: https://serverspace.io/es/support/help/how-to-install-ncat-tool-on_windows-and-linux/
+              + Cierro terminal y compruebo en el nuevo terminal: ncat -v
+              + realizo las comprobaciones que indica en la guia pero con NCAT en vez de nc -zv ---
+                * ```  ncat -zv localhost 29092 ```  (debo de tener conexion)
+                * ``` ncat -zv localhost 22181 ```  (debo de tener conexion)
+          - cuando he lanzo el comando porque he cambiado puertos, añadidos cosas
+             ```
+             docker-compose up -d 
+             ```
+            No es necesario eliminar los contenedores, ya que se reinstalan los cambios
+            si he añadido cosas nuevas o modificaciones etc en el docker-compose.yml
