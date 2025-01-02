@@ -5,7 +5,6 @@ import com.bncn.inditex.entity.Customer;
 import com.bncn.inditex.service.PriceService;
 import com.bncn.inditex.service.ProducerKafkaService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
