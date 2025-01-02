@@ -8,9 +8,9 @@ spring:
 
   datasource:
     url: jdbc:h2:mem:bcnc
-    driverClassName: org.h2.Driver
     username: sa
     password:
+    driverClassName: org.h2.Driver
     data: classpath:data.sql
     schema: classpath:schema.sql
     sql-script-encoding: UTF-8
@@ -20,20 +20,41 @@ spring:
     database-platform: org.hibernate.dialect.H2Dialect
     show-sql: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: update  # create-drop (es bueno si en elos test no indicas create table if not exits), validate (no arranca si no lo valida)
       use_sql_comments: true
       format_sql: true
-
 
   sql:
     init:
       mode: always
-      data-locations: classpath:data.sql  # Añadir esta propiedad aquí
+      data-locations: classpath:data.sql
   h2:
     console:
       enabled: true
       path: /h2-console
       settings.trace: false
       settings.web-allow-others: false
+  kafka:
+    bootstrap-servers: localhost:29092   # utilizando DOCKER no me funciona el puerto 9092
+    consumer:
+      #      bootstrap-servers: localhost:9092
+      group-id: group_id
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
 
+      properties:
+        spring.deserializer.value.delegate.class: org.apache.kafka.common.serialization.JsonDeserializer
+        spring.json.value.default.type: com.bncn.inditex.events.Event
+        spring.json.trusted.packages: "*"
+    producer:
+      #      bootstrap-servers: localhost:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        spring.kafka.producer.properties.spring.json.type.mapping: "event:com.bncn.inditex.events.Event"
 
+logging:
+  level:
+    org.hibernate.SQL: debug
+    org.hibernate.type.descriptor.sql.BasicBinder: trace

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -30,7 +30,6 @@
 		<java.version>17</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<spring-boot.version>2.7.10</spring-boot.version> <!-- Ajusta la versión según tu proyecto -->
 		<kafka.version>3.5.1</kafka.version>
 		<spring-kafka.version>3.2.4</spring-kafka.version>
 	</properties>
@@ -66,6 +65,12 @@
 			<artifactId>springdoc-openapi-ui</artifactId>
 			<version>1.8.0</version>
 		</dependency>
+		<dependency>
+			<groupId>javax.persistence</groupId>
+			<artifactId>javax.persistence-api</artifactId>
+			<version>2.2</version>
+		</dependency>
+
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
@@ -115,10 +120,18 @@
 			<version>2.11.0</version>
 		</dependency>
 
-		<dependency> <!-- Al usar version java superior a la 8 me da problemas el endpoint con parametros query-->
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
-			<version>4.0.1</version>
+<!--		<dependency> &lt;!&ndash; Al usar version java superior a la 8 me da problemas el endpoint con parametros query&ndash;&gt;-->
+<!--			<groupId>javax.servlet</groupId>-->
+<!--			<artifactId>javax.servlet-api</artifactId>-->
+<!--			<version>4.0.1</version>-->
+<!--		</dependency>-->
+
+
+		<!--		Me pide usar jakarta.servlet en vez de javax -->
+		<dependency>
+			<groupId>jakarta.servlet</groupId>
+			<artifactId>jakarta.servlet-api</artifactId>
+			<version>6.1.0</version> <!-- Asegúrate de usar la versión adecuada -->
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -134,7 +147,7 @@
 		</dependency>
 
 
-<!--		Me generaba bien los test pero me daba unos errores al inicio el cual no queria ver y añado estas 3 dependencias-->
+		<!--		Me generaba bien los test pero me daba unos errores al inicio el cual no queria ver y añado estas 3 dependencias-->
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-core</artifactId>
@@ -167,7 +180,7 @@
 			<plugin>
 				<groupId>org.openapitools</groupId>
 				<artifactId>openapi-generator-maven-plugin</artifactId>
-				<version>7.7.0</version>
+				<version>7.10.0</version>
 				<executions>
 					<execution>
 						<goals>
@@ -185,6 +198,7 @@
 								<delegatePattern>false</delegatePattern> <!-- Para que no genere una capa delegado intermedia en la zona del controller-->
 								<interfaceOnly>false</interfaceOnly> <!-- Me escriba la imterfaz de la implementacion del controller-->
 								<returnSuccessCode>true</returnSuccessCode>
+								<useJakartaEe>true</useJakartaEe> <!-- Fundamental para indicarle que en la clase ApiUtil.java, use jakarta.servlet-api en vez de javax.servlet-api. He tenido que cambiar la dependencia de javax a jakarta tambien. Todo es por las versiones de spring 3.x y kafka tan modernas-->
 							</configOptions>
 						</configuration>
 					</execution>
