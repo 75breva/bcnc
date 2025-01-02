@@ -127,7 +127,8 @@ Puedes visualizarlo desde docker desktop
           - https://imaginaformacion.com/tutoriales/que-es-docker-compose
           - Me voy a la ruta de mi docker-compose.yml y lanzo en el terminal: 
           ``` 
-           docker-compose up -d 
+           docker-compose down          -> para parar
+           docker-compose up -d         -> para arrancar
           ```
             + Me debe de generar los dos contenedero/imagenes de kafka y zookeeper.
             + En total 6 volumenes, 3 imagenes/contenedores (con la del portainer), 1 stack, 4 network
