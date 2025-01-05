@@ -1,7 +1,8 @@
 package com.bncn.inditex.controller;
 
+import com.bncn.inditex.avro.Customer;
 import com.bncn.inditex.dto.Price;
-import com.bncn.inditex.entity.Customer;
+
 import com.bncn.inditex.service.PriceService;
 import com.bncn.inditex.service.ProducerKafkaService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,7 +1,7 @@
 package com.bncn.inditex.events;
 
 
-import com.bncn.inditex.entity.Customer;
+import com.bncn.inditex.avro.Customer;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

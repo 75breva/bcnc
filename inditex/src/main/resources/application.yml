@@ -1,6 +1,6 @@
 
 server:
-  port: 8081
+  port: 8181
 
 spring:
   application:
@@ -40,20 +40,32 @@ spring:
       #      bootstrap-servers: localhost:9092
       group-id: group_id
       auto-offset-reset: earliest
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+#      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      keyDeserializer: org.apache.kafka.common.serialization.StringDeserializer # keyDeserializer o key-deserializer  es lo mismo. Interesante
+      valueDeserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer # Ahora indico consumir objeto avro
 
       properties:
-        spring.deserializer.value.delegate.class: org.apache.kafka.common.serialization.JsonDeserializer
-        spring.json.value.default.type: com.bncn.inditex.events.Event
-        spring.json.trusted.packages: "*"
+#        spring.deserializer.value.delegate.class: org.apache.kafka.common.serialization.JsonDeserializer # lo comento pk paso a estar con avro en vez de un json
+        spring.deserializer.value.delegate.class: io.confluent.kafka.serializers.KafkaAvroDeserializer  # Ahora indico consumir desde avro
+#        spring.json.value.default.type: com.bncn.inditex.events.Event  # lo comento pk paso a estar con avro
+#        spring.json.trusted.packages: "*"                              # lo comento pk paso a estar con avro
+        schema:
+          registry:
+            url: "http://127.0.0.1:8081"  # URL del Schema Registry
+        specific:
+          avro:
+            reader: "true"
     producer:
       #      bootstrap-servers: localhost:9092
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer  #AHORA estoy con avro y no se serializa JSON
+      #      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer  # lo comento pk paso a estar con avro
       properties:
-        spring.kafka.producer.properties.spring.json.type.mapping: "event:com.bncn.inditex.events.Event"
-
+#        spring.kafka.producer.properties.spring.json.type.mapping: "event:com.bncn.inditex.events.Event"  # lo comento pk paso a estar con avro
+        schema:
+          registry:
+            url: "http://127.0.0.1:8081" # URL del Schema Registry
 logging:
   level:
     org.hibernate.SQL: debug

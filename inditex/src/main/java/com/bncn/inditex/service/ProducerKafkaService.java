@@ -1,6 +1,7 @@
 package com.bncn.inditex.service;
 
-import com.bncn.inditex.entity.Customer;
+
+import com.bncn.inditex.avro.Customer;
 import org.springframework.stereotype.Service;
 
 @Service

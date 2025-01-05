@@ -24,12 +24,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8081/v1/prices?applicationDate=2024-08-11 15:00:00&productId=35455&brandId=1",
+					"raw": "http://localhost:8181/v1/prices?applicationDate=2024-08-11 15:00:00&productId=35455&brandId=1",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8081",
+					"port": "8181",
 					"path": [
 						"v1",
 						"prices"
@@ -47,6 +47,160 @@
 							"key": "brandId",
 							"value": "1"
 						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "mi_app",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\":1,\r\n    \"name\":\"miguelAC\",\r\n    \"email\":\"miguelAC@gmail.com\",\r\n    \"phone\": \"666555444\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8181/v1/prices/publish",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8181",
+					"path": [
+						"v1",
+						"prices",
+						"publish"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "spring-kafka-avro",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"DHJKWHD33\",\r\n    \"firstName\": \"pepe\",\r\n    \"middleName\":\"asdf\",\r\n    \"lastName\": \"calderon\",\r\n    \"emailId\": \"email@gmial.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8181/events",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8181",
+					"path": [
+						"events"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "K8s - http://localhost:9393/hi",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9393/hi",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9393",
+					"path": [
+						"hi"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "K8s - http://localhost:9393/redis/all",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8181/redis/all",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8181",
+					"path": [
+						"redis",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "K8s - GetSize",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8181/getSize",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8181",
+					"path": [
+						"getSize"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "K8s - addToList",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8181/addToList",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8181",
+					"path": [
+						"addToList"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "K8s - delete",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8181/addToList",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8181",
+					"path": [
+						"addToList"
 					]
 				}
 			},

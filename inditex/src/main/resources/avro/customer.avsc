@@ -1,0 +1,24 @@
+{
+  "namespace": "com.bncn.inditex.avro",
+  "type": "record",
+  "name": "Customer",
+  "fields": [
+    {
+      "name": "id",
+      "type": "string"
+    },
+    {
+      "name": "name",
+      "type": "string"
+    },
+    {
+      "name": "email",
+      "type": "string",
+      "default": ""
+    },
+    {
+      "name": "phone",
+      "type": "string"
+    }
+  ]
+}

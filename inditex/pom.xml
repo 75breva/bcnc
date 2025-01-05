@@ -60,10 +60,17 @@
 			<artifactId>jackson-databind-nullable</artifactId>
 			<version>0.2.6</version>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springdoc</groupId>
-			<artifactId>springdoc-openapi-ui</artifactId>
-			<version>1.8.0</version>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>2.3.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi</artifactId>
+			<version>2.3.0</version>
+			<type>pom</type>
 		</dependency>
 		<dependency>
 			<groupId>javax.persistence</groupId>
@@ -164,11 +171,34 @@
 			<version>1.1.21</version>
 		</dependency>
 
+		<!-- Dependencias de AVRO -->
+		<dependency>
+			<groupId>io.confluent</groupId>
+			<artifactId>kafka-avro-serializer</artifactId>
+			<version>7.4.0</version>
+		</dependency>
+		<dependency>
+			<groupId>io.confluent</groupId>
+			<artifactId>kafka-schema-registry-client</artifactId>
+			<version>7.4.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.avro</groupId>
+			<artifactId>avro</artifactId>
+			<version>1.11.0</version>
+		</dependency>
+
 	</dependencies>
+<!--	<repositories>-->
+<!--		<repository>-->
+<!--			<id>central</id>-->
+<!--			<url>https://repo.maven.apache.org/maven2</url>-->
+<!--		</repository>-->
+<!--	</repositories>-->
 	<repositories>
 		<repository>
-			<id>central</id>
-			<url>https://repo.maven.apache.org/maven2</url>
+			<id>confluent</id>
+			<url>https://packages.confluent.io/maven/</url>
 		</repository>
 	</repositories>
 	<build>
@@ -200,6 +230,23 @@
 								<returnSuccessCode>true</returnSuccessCode>
 								<useJakartaEe>true</useJakartaEe> <!-- Fundamental para indicarle que en la clase ApiUtil.java, use jakarta.servlet-api en vez de javax.servlet-api. He tenido que cambiar la dependencia de javax a jakarta tambien. Todo es por las versiones de spring 3.x y kafka tan modernas-->
 							</configOptions>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.avro</groupId>
+				<artifactId>avro-maven-plugin</artifactId>
+				<version>1.8.2</version>
+				<executions>
+					<execution>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>schema</goal>
+						</goals>
+						<configuration>
+							<sourceDirectory>${project.basedir}/src/main/resources/avro</sourceDirectory>
+							<outputDirectory>${project.basedir}/src/main/java/</outputDirectory>
 						</configuration>
 					</execution>
 				</executions>
