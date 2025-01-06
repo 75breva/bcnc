@@ -64,6 +64,9 @@ mvn clean test
 ## Base de datos  H2 
 Para acceder a la configuracion de la base de datos (url, puertos etc) tenemos el archivo
 + application.yml donde habilitamos la consola h2, indicamos url puertos , configuracion de la bbdd
+  + url : jdbc:h2:mem:bcnc
+  + user : sa
+  + pass : en blanco
 1. Relacion sobre la creacion de las tablas PRICES, PRODUCT y BRAND
    + Tenemos relacion de 1:N entre la tabla Prices con Product y la tabla Prices con Brand el cual indicamos que a la
    hora de crear un nuevo atributo Prices, previamete debe de existir el producto y brand que asociemos.
@@ -144,3 +147,15 @@ Puedes visualizarlo desde docker desktop
              ```
             No es necesario eliminar los contenedores, ya que se reinstalan los cambios
             si he añadido cosas nuevas o modificaciones etc en el docker-compose.yml
+### Opcion 3  [ Kafka con AVRO] 
+En el ultimo commit explico lo que he realizado.
+- Modifico depentencias del pom. He tenido problemas con las versiones debido al springdoc-openapi a la hora de RUN.
+- docker-compose: añado la imagen confluent etc, me crea la clase main/java/inditex/avro/Customer cuando hago en el terminal.
+```
+docker-compose up -d 
+```
++ Entonces ahora tanto para el productor como consumidor modifico en las clases java para que use la clase Customer.
++ application.yml Tengo que indicar que no serialize/Deserialize un json si no que un kafkaAvro.
+
+Ahora simplemten lanzas el comando para lanzar el doncker-compose.yml, (Se visualiza todo muy bien en docker-desktop) 
+PARA que te cree las imagenes de zookeeper, kafka  , schema-registry y ya puedes arrancar la aplicacion.
