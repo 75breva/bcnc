@@ -34,10 +34,13 @@ public class PriceService {
     public List<Price> findPrices( Integer productId, Integer brandId, String applicationDate)throws Exception  {
         Validate.validateParammeters(applicationDate);
         List<PriceJpa> priceJpaList = priceRepository.findAllPricesbyDate(productId,brandId, Timestamp.valueOf(applicationDate));
-//        ProductJpa productJpa = new ProductJpa();
-//        productJpa.setName("nuevo prod");
-//        productJpa.setDescription("buena descripcion");
-//        productRepository.save(productJpa);
+ /*
+     // Pequeña prueba para ver si incrementaba bien.
+        ProductJpa productJpa = new ProductJpa();
+        productJpa.setName("nuevo prod");
+        productJpa.setDescription("buena descripcion");
+        productRepository.save(productJpa);
+  */
         if(!priceJpaList.isEmpty()){
             return priceJpaList.stream().map(PriceJpa::toPriceDto).toList();
         }
