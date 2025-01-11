@@ -31,4 +31,109 @@ create table IF NOT EXISTS prices(
 --    constraint unique_price UNIQUE (cod_product, cod_brand, start_date),
 
 );
+-- ESTO LO EJECUTO en ADMINER para crear la bbdd. -> http://localhost:9090/?pgsql=postgres&username=admin&db=bcnc&ns=bcnc
+
+-- ESQUEMA BCNC
+
+--create schema if not exists bcnc;
+--CREATE TABLE IF NOT EXISTS bcnc.product (
+--    cod_product SERIAL PRIMARY KEY,      -- Autoincremental en PostgreSQL
+--    des_name VARCHAR(20) NOT NULL,
+--    des_description VARCHAR(80) NOT NULL
+--);
+--
+--CREATE TABLE IF NOT EXISTS bcnc.brand (
+--    cod_brand SERIAL PRIMARY KEY,        -- Autoincremental en PostgreSQL
+--    des_name VARCHAR(20) NOT NULL,
+--    des_description VARCHAR(80) NOT NULL
+--);
+--
+--CREATE TABLE IF NOT EXISTS bcnc.prices (
+--    cod_price SERIAL PRIMARY KEY,        -- Autoincremental en PostgreSQL
+--    cod_product INTEGER NOT NULL,
+--    cod_brand INTEGER NOT NULL,
+--    start_date TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+--    end_date TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+--    priority INTEGER NOT NULL,
+--    price_list INTEGER NOT NULL,
+--    price_final varchar(40) NOT NULL,
+--    moneda VARCHAR(5) NOT NULL,
+--
+--    CONSTRAINT rproduct_prices_1 FOREIGN KEY (cod_product)
+--        REFERENCES bcnc.product(cod_product),
+--    CONSTRAINT rbrand_prices_1 FOREIGN KEY (cod_brand)
+--        REFERENCES bcnc.brand(cod_brand),
+--    CONSTRAINT unique_price UNIQUE (cod_product, cod_brand, start_date) -- Se añade la restricción unique
+--);
+--
+--create sequence if not exists bcnc.qbcncpro0
+--increment 1
+--minvalue 1
+--start 1;
+--
+--create sequence if not exists bcnc.qbcncbra0
+--increment 1
+--minvalue 1
+--start 1;
+--
+--create sequence if not exists bcnc.qbcncpri0
+--increment 1
+--minvalue 1
+--start 1;
+
+
+
+
+
+-- ESQUEMA POR DEFECTO ES PUBLIC
+
+
+
+
+--CREATE TABLE IF NOT EXISTS product (
+--    cod_product SERIAL PRIMARY KEY,      -- Autoincremental en PostgreSQL
+--    des_name VARCHAR(20) NOT NULL,
+--    des_description VARCHAR(80) NOT NULL
+--);
+--
+--CREATE TABLE IF NOT EXISTS brand (
+--    cod_brand SERIAL PRIMARY KEY,        -- Autoincremental en PostgreSQL
+--    des_name VARCHAR(20) NOT NULL,
+--    des_description VARCHAR(80) NOT NULL
+--);
+--
+--CREATE TABLE IF NOT EXISTS prices (
+--    cod_price SERIAL PRIMARY KEY,        -- Autoincremental en PostgreSQL
+--    cod_product INTEGER NOT NULL,
+--    cod_brand INTEGER NOT NULL,
+--    start_date TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+--    end_date TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+--    priority INTEGER NOT NULL,
+--    price_list INTEGER NOT NULL,
+--    price_final varchar(40) NOT NULL,
+--    moneda VARCHAR(5) NOT NULL,
+--
+--    CONSTRAINT rproduct_prices_1 FOREIGN KEY (cod_product)
+--        REFERENCES bcnc.product(cod_product),
+--    CONSTRAINT rbrand_prices_1 FOREIGN KEY (cod_brand)
+--        REFERENCES bcnc.brand(cod_brand),
+--    CONSTRAINT unique_price UNIQUE (cod_product, cod_brand, start_date) -- Se añade la restricción unique
+--);
+--
+--
+--
+--create sequence if not exists qbcncpro0
+--increment 1
+--minvalue 1
+--start 1;
+--
+--create sequence if not exists qbcncbra0
+--increment 1
+--minvalue 1
+--start 1;
+--
+--create sequence if not exists qbcncpri0
+--increment 1
+--minvalue 1
+--start 1;
 

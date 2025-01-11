@@ -1,0 +1,54 @@
+version: '2'
+services:
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - 22181:2181
+
+  kafka:
+    image: confluentinc/cp-kafka:latest
+    depends_on:
+      - zookeeper
+    ports:
+      - 29092:29092
+    #      - 9092:9092 # he probado a poner este puerto y no me funciona con mi aplicacion, osea en mi APP debo de poner el puerto 29092 para que funcione kafka.
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+
+  schema-registry:
+    image: confluentinc/cp-schema-registry:latest
+    depends_on:
+      - kafka
+    ports:
+      - 8081:8081
+    environment:
+      SCHEMA_REGISTRY_HOST_NAME: schema-registry
+      SCHEMA_REGISTRY_LISTENERS: http://0.0.0.0:8081
+      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: PLAINTEXT://kafka:9092
+
+  postgres:
+    image: postgres:14-alpine
+    restart: always     # Garantiza que el contenedor se reinicie si se detiene inesperadamente.
+    shm_size: 128mb    # Configura el tamaño de la memoria compartida para optimizar el rendimiento de la base de datos en sistemas Docker.
+    ports:
+      - 5432:5432
+    volumes:
+      - ~/apps/postgres:/var/lib/postgresql/data # Aunque elimines el contenedor/imagen de la bbdd , la info no se pierde en mi local pk se guarda aqui.
+    environment:
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_USER=admin
+      - POSTGRES_DB=bcnc
+
+  adminer:
+    image: adminer   #Utiliza la imagen oficial de Adminer, una interfaz web para gestionar bases de datos.
+    restart: always
+    ports:
+      - 9090:8080    # http://localhost:9090/?pgsql=db&username=admin&db=bcnc   servidor: postgres(nombre de la imagen) . Usuario:admin . Contraseña:admin . Base de datos: bcnc

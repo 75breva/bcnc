@@ -1,42 +1,60 @@
 
 server:
-  port: 8081
+  port: 8181
 
 spring:
   application:
     name: inditex
 
-  datasource:
-    url: jdbc:h2:mem:bcnc
-    username: sa
-    password:
-    driverClassName: org.h2.Driver
-    data: classpath:data.sql
-    schema: classpath:schema.sql
-    sql-script-encoding: UTF-8
-
-  jpa:
-    database: h2
-    database-platform: org.hibernate.dialect.H2Dialect
-    show-sql: true
-    hibernate:
-      ddl-auto: update  # create-drop (es bueno si en elos test no indicas create table if not exits), validate (no arranca si no lo valida)
-      use_sql_comments: true
-      format_sql: true
-
-  sql:
-    init:
-      mode: always
-      data-locations: classpath:data.sql
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
-      settings.trace: false
-      settings.web-allow-others: false
-
-
+#  datasource:
+#    url: jdbc:h2:mem:bcnc
+#    username: sa
+#    password:
+#    driverClassName: org.h2.Driver
+#    data: classpath:data.sql
+#    schema: classpath:schema.sql
+#    sql-script-encoding: UTF-8
+#
+#  jpa:
+#    database: h2
+#    database-platform: org.hibernate.dialect.H2Dialect
+#    show-sql: true
+#    hibernate:
+#      ddl-auto: update  # create-drop (es bueno si en elos test no indicas create table if not exits), validate (no arranca si no lo valida)
+#      use_sql_comments: true
+#      format_sql: true
+#
+#  sql:
+#    init:
+#      mode: always
+#      data-locations: classpath:data.sql
+#  h2:
+#    console:
+#      enabled: true
+#      path: /h2-console
+#      settings.trace: false
+#      settings.web-allow-others: false
+#
+#
 #logging:
 #  level:
 #    org.hibernate.SQL: debug
 #    org.hibernate.type.descriptor.sql.BasicBinder: trace
+  jpa:
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    properties:
+      hibernate:
+        default_schema: bcnc  # Con esto simplemente no funcionaba bien., define el esquema que se utiliza por defecto cuando no se especifica explícitamente un esquema en las entidades
+    show-sql: true
+    hibernate.ddl-auto: update
+  datasource:
+    url: jdbc:postgresql://localhost:5432/bcnc?currentSchema=bcnc  #  IMPORTANTISIMO para que no intente buscar datos en bbdd:bcnc pero con schema:public, si no que lo haga en el schema:bcnc
+    username: admin
+    password: admin
+    driver-class-name: org.postgresql.Driver
+
+logging:
+  level:
+    org.hibernate.SQL: debug
+    org.hibernate.type.descriptor.sql.BasicBinder: trace

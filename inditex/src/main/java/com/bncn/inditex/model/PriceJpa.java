@@ -11,12 +11,14 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "prices")
+@Table(name = "prices",schema = "bcnc")
 @Data
 @Slf4j
+@SequenceGenerator(sequenceName = "bcnc.QBCNCPRI0", allocationSize = 1, name = "QBCNCPRI0")
 public class PriceJpa implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "QBCNCPRI0")
     @Column(name = "cod_price", nullable = false)
     private Integer id;
     @ManyToOne(targetEntity = ProductJpa.class)

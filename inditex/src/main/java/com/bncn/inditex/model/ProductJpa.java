@@ -16,14 +16,15 @@ import java.util.List;
 
 
 @Entity
-@Table(name = "product")
-
+@Table(name = "product",schema = "bcnc")
 @Data
 @Slf4j  // Importante para que no me de problemas encontrando las entidades
+@SequenceGenerator(sequenceName = "bcnc.QBCNCPRO0", allocationSize = 1, name = "QBCNCPRO0")
 public class ProductJpa implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "QBCNCPRO0")
     @Column(name = "cod_product", nullable = false)
     private Integer id;
 

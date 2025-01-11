@@ -11,12 +11,14 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@Table(name = "brand")
+@Table(name = "brand",schema = "bcnc")
 @Data
 @Slf4j
+@SequenceGenerator(sequenceName = "bcnc.QBCNCBRA0", allocationSize = 1, name = "QBCNCBRA0")
 public class BrandJpa implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "QBCNCBRA0")
     @Column(name = "cod_brand", nullable = false)
     private Integer id;
 
