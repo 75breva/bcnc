@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -30,8 +30,17 @@
 		<java.version>17</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<kafka.version>3.5.1</kafka.version>
+		<spring-kafka.version>3.2.4</spring-kafka.version>
 	</properties>
 	<dependencies>
+		<!-- Dependencia de Spring Kafka -->
+		<!-- Esta dependencia es la que proporciona el KafkaTemplate, el KafkaListener, y la configuración automática de Kafka en Spring Boot.-->
+		<dependency>
+			<groupId>org.springframework.kafka</groupId>
+			<artifactId>spring-kafka</artifactId>
+			<version>3.3.1</version> <!-- el segundo numero 3 igual a la versión compatible con tu Spring Boot -->
+		</dependency>
 
 		<dependency> <!-- Si no se pone no inyecta bien los repos en los servicios-->
 			<groupId>org.springframework.boot</groupId>
@@ -51,10 +60,17 @@
 			<artifactId>jackson-databind-nullable</artifactId>
 			<version>0.2.6</version>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springdoc</groupId>
-			<artifactId>springdoc-openapi-ui</artifactId>
-			<version>1.8.0</version>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>2.3.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi</artifactId>
+			<version>2.3.0</version>
+			<type>pom</type>
 		</dependency>
 		<dependency>
 			<groupId>javax.persistence</groupId>
@@ -110,11 +126,23 @@
 			<artifactId>commons-io</artifactId>
 			<version>2.11.0</version>
 		</dependency>
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<!--		<dependency> &lt;!&ndash; Al usar version java superior a la 8 me da problemas el endpoint con parametros query&ndash;&gt;-->
+		<!--			<groupId>javax.servlet</groupId>-->
+		<!--			<artifactId>javax.servlet-api</artifactId>-->
+		<!--			<version>4.0.1</version>-->
+		<!--		</dependency>-->
 
-		<dependency> <!-- Al usar version java superior a la 8 me da problemas el endpoint con parametros query-->
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
-			<version>4.0.1</version>
+
+		<!--		Me pide usar jakarta.servlet en vez de javax -->
+		<dependency>
+			<groupId>jakarta.servlet</groupId>
+			<artifactId>jakarta.servlet-api</artifactId>
+			<version>6.1.0</version> <!-- Asegúrate de usar la versión adecuada -->
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -128,14 +156,9 @@
 			<artifactId>maven-javadoc-plugin</artifactId>
 			<version>3.5.0</version>
 		</dependency>
-		<dependency>
-			<groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-			<scope>runtime</scope>
-		</dependency>
 
 
-<!--		Me generaba bien los test pero me daba unos errores al inicio el cual no queria ver y añado estas 3 dependencias-->
+		<!--		Me generaba bien los test pero me daba unos errores al inicio el cual no queria ver y añado estas 3 dependencias-->
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-core</artifactId>
@@ -152,11 +175,34 @@
 			<version>1.1.21</version>
 		</dependency>
 
+		<!-- Dependencias de AVRO -->
+		<dependency>
+			<groupId>io.confluent</groupId>
+			<artifactId>kafka-avro-serializer</artifactId>
+			<version>7.4.0</version>
+		</dependency>
+		<dependency>
+			<groupId>io.confluent</groupId>
+			<artifactId>kafka-schema-registry-client</artifactId>
+			<version>7.4.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.avro</groupId>
+			<artifactId>avro</artifactId>
+			<version>1.11.0</version>
+		</dependency>
+
 	</dependencies>
+	<!--	<repositories>-->
+	<!--		<repository>-->
+	<!--			<id>central</id>-->
+	<!--			<url>https://repo.maven.apache.org/maven2</url>-->
+	<!--		</repository>-->
+	<!--	</repositories>-->
 	<repositories>
 		<repository>
-			<id>central</id>
-			<url>https://repo.maven.apache.org/maven2</url>
+			<id>confluent</id>
+			<url>https://packages.confluent.io/maven/</url>
 		</repository>
 	</repositories>
 	<build>
@@ -168,7 +214,7 @@
 			<plugin>
 				<groupId>org.openapitools</groupId>
 				<artifactId>openapi-generator-maven-plugin</artifactId>
-				<version>7.7.0</version>
+				<version>7.10.0</version>
 				<executions>
 					<execution>
 						<goals>
@@ -186,7 +232,25 @@
 								<delegatePattern>false</delegatePattern> <!-- Para que no genere una capa delegado intermedia en la zona del controller-->
 								<interfaceOnly>false</interfaceOnly> <!-- Me escriba la imterfaz de la implementacion del controller-->
 								<returnSuccessCode>true</returnSuccessCode>
+								<useJakartaEe>true</useJakartaEe> <!-- Fundamental para indicarle que en la clase ApiUtil.java, use jakarta.servlet-api en vez de javax.servlet-api. He tenido que cambiar la dependencia de javax a jakarta tambien. Todo es por las versiones de spring 3.x y kafka tan modernas-->
 							</configOptions>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.avro</groupId>
+				<artifactId>avro-maven-plugin</artifactId>
+				<version>1.8.2</version>
+				<executions>
+					<execution>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>schema</goal>
+						</goals>
+						<configuration>
+							<sourceDirectory>${project.basedir}/src/main/resources/avro</sourceDirectory>
+							<outputDirectory>${project.basedir}/src/main/java/</outputDirectory>
 						</configuration>
 					</execution>
 				</executions>
